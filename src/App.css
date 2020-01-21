@@ -1,17 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+
 
 .App-header {
   background-color: #282c34;
@@ -24,15 +18,39 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+#stats {
+ display:flex;
+  flex-direction: row;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h2{
+  font: 400 16px 'Open Sans';
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 1px 1px 1px #fff;
+}
+
+.square_btn{
+  margin-bottom: 5px;
+  width: 275px;
+  height: 45px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 3px;
+  font-weight: bold;
+  color: #FFF;
+  background-image: -webkit-linear-gradient(45deg, #287bef 0%, #287bef 100%);
+  background-image: linear-gradient(45deg, #287bef 0%, #287bef 100%);
+  transition: .4s;
+}
+
+.square_btn:hover{
+  background-image: -webkit-linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
+  background-image: linear-gradient(45deg, #709dff 50%, #b0c9ff 100%);
+}
+#inputbut{
+  width: 150px;
+  height: 35px;
 }

@@ -1,26 +1,70 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Quiz from './components/quizrun'
+import Lottie from "react-lottie";
+import lottiesettings from './components/LottieSettings'
+//BONUS 2-5-6-7 has been implemented
+//BOnus 1-3-4 not implemented but  With a few changes they also can be implemented with ease.
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+  constructor(){
+    super();
+    this.state = {
+      loading: true,
+      start: false,
+      dom: [],
+    }
+
+  }
+
+  fetchData = () => {
+    const { dom } = this.state;
+    fetch( 'https://opentdb.com/api.php?amount=10&type=multiple' )
+        .then( response => response.json() )
+        .then( data => {
+          this.setState( { loading: false } );
+          console.log( data.results );
+          dom.push( <div>
+            <Lottie options={ lottiesettings.defaultOptionswelcome } height={ 300 } width={ 300 } isPaused={ false }
+                    isStopped={ false }/>
+            <h2>
+              A Trivia Game.
+            </h2>
+            <form onSubmit={ this.StartQuiz }>
+              <input className="square_btn" id="inputbut" type="submit" value="Get Started"/>
+            </form>
+          </div> );
+          dom.push( <Quiz questions={ data.results } endQuiz={ this.endQuiz }/> );
+          this.setState( { dom } );
+        } );
+  };
+
+  async componentDidMount(){
+    this.fetchData();
+  }
+
+  StartQuiz = ( e ) => {
+    e.preventDefault();
+    this.setState( { start: true, } )
+  };
+  endQuiz = () => {// Ends the quiz by reloading the page. It can be done with states but this is faster for development since fetching data happens in didmount.
+    window.location.reload();
+  };
+
+  render(){
+    const { loading, dom, start } = this.state;
+    return (
+
+        <div className="App">
+          <header className="App-header">
+            {/*//shows loading animation during fetching and ternary checks for if start button has pressed or not*/ }
+            { loading === true ?
+                <Lottie options={ lottiesettings.defaultOptionsloading } height={ 100 } width={ 100 } isPaused={ false }
+                        isStopped={ false }/> : ( start === false ? dom[ 0 ] : dom[ 1 ] ) }
+          </header>
+        </div>
+    );
+  }
 }
 
 export default App;
