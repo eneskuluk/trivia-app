@@ -24,7 +24,7 @@ class App extends Component{
         .then( response => response.json() )
         .then( data => {
           this.setState( { loading: false } );
-          console.log( data.results );
+          // console.log( data.results );      was used to debug
           dom.push( <div>
             <Lottie options={ lottiesettings.defaultOptionswelcome } height={ 300 } width={ 300 } isPaused={ false }
                     isStopped={ false }/>
@@ -36,7 +36,7 @@ class App extends Component{
             </form>
           </div> );
           dom.push( <Quiz questions={ data.results } endQuiz={ this.endQuiz }/> );
-          console.log(dom);
+          // console.log(dom);    debug element
           this.setState( { dom } );
         } );
   };

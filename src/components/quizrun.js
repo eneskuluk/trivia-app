@@ -46,14 +46,14 @@ class quizrun extends Component{
   selectAnswer=(e)=>{// gets data from child component and checks whether true or not.
     const {questions}=this.props;
     const{index,points,gain,count}=this.state;
-    console.log(e.target.value);
+    // console.log(e.target.value);   for debug purposes
     clearInterval( this.timer);//clears the interval since it does not matter if it is true or not, so with this clearing, it wont automatically end the game because count would never be 0.otherwise it continues to count until 0
     if(e.target.value!==this.decode(questions[index].correct_answer)){
-      console.log( "false" );
+      // console.log( "false" );
       this.setState({result:true});//if it is false sets result to true since correct is false as default, it is acknowledged that quiz will end.
     }
     else{
-      console.log( "true" );
+      // console.log( "true" );
       this.setState({points:points+gain+count*5,gain:gain+10,correct:true,result:true});//5 extra bonus point per second left
       clearInterval( this.timer);
     }
