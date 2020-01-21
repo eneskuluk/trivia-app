@@ -13,6 +13,7 @@ class App extends Component{
       loading: true,
       start: false,
       dom: [],
+      end:0,//simple hack to make quiz end faster
     }
 
   }
@@ -35,6 +36,7 @@ class App extends Component{
             </form>
           </div> );
           dom.push( <Quiz questions={ data.results } endQuiz={ this.endQuiz }/> );
+          console.log(dom);
           this.setState( { dom } );
         } );
   };
@@ -47,8 +49,9 @@ class App extends Component{
     e.preventDefault();
     this.setState( { start: true, } )
   };
-  endQuiz = () => {// Ends the quiz by reloading the page. It can be done with states but this is faster for development since fetching data happens in didmount.
-    window.location.reload();
+  endQuiz = () => {// Ends the quiz by setting the start state to false. Since app will fetch new data, loading state also put in true during waiting stage.
+    this.setState({start:false,loading:true,end:this.state.end+2});
+    this.fetchData();
   };
 
   render(){
@@ -60,7 +63,7 @@ class App extends Component{
             {/*//shows loading animation during fetching and ternary checks for if start button has pressed or not*/ }
             { loading === true ?
                 <Lottie options={ lottiesettings.defaultOptionsloading } height={ 100 } width={ 100 } isPaused={ false }
-                        isStopped={ false }/> : ( start === false ? dom[ 0 ] : dom[ 1 ] ) }
+                        isStopped={ false }/> : ( start === false ? dom[ this.state.end ] : dom[ this.state.end+1 ] ) }
           </header>
         </div>
     );
