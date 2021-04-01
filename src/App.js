@@ -3,8 +3,6 @@ import './App.css';
 import Quiz from './components/quizrun'
 import Lottie from "react-lottie";
 import lottiesettings from './components/LottieSettings'
-//BONUS 2-5-6-7 has been implemented
-//BOnus 1-3-4 not implemented but  With a few changes they also can be implemented with ease.
 
 class App extends Component{
   constructor(){
@@ -13,7 +11,7 @@ class App extends Component{
       loading: true,
       start: false,
       dom: [],
-      end:0,//simple hack to make quiz end faster
+      end:0,
     }
 
   }
@@ -24,7 +22,7 @@ class App extends Component{
         .then( response => response.json() )
         .then( data => {
           this.setState( { loading: false } );
-          // console.log( data.results );      was used to debug
+          
           dom.push( <div>
             <Lottie options={ lottiesettings.defaultOptionswelcome } height={ 300 } width={ 300 } isPaused={ false }
                     isStopped={ false }/>
